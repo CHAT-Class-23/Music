@@ -1,0 +1,110 @@
+.grid {
+    width:240px;
+    height:580px;
+    margin: auto;
+    display:flex;
+    flex-wrap: wrap;
+ }
+ 
+ 
+ .darkgridSquare {
+    width:20px;
+    height:20px;
+    background-color: rgb(3, 23, 37);
+    display: flex;
+    flex-wrap: wrap;
+ }
+ 
+ 
+ .lightgridSquare {
+    width:20px;
+    height:20px;
+    background-color: rgb(0, 221, 255);
+    display: flex;
+    flex-wrap: wrap;
+ }
+ 
+ 
+ #startButton {
+    position: top;
+    width:130px;
+    height:100px;
+    background-color: rgb(0, 255, 34);
+    bottom:450px;
+    left:500px;
+ }
+ 
+ 
+ .scoreBox {
+    position: relative;
+    width: 200;
+    height: 300;
+    background-color: rgb(25, 213, 25);
+    right: 500px;
+    margin: auto;
+    flex-wrap: wrap;
+    display: grid;
+ 
+ 
+ }
+ 
+ 
+ .scoreBoxDarkgridSquare {
+ 
+ 
+ 
+ 
+ }
+ 
+ 
+ #pauseButton {
+    position: top;
+    width:130px;
+    height:100px;
+    background-color: rgb(230, 57, 57);
+    bottom:200px;
+    left:396px;
+ }
+ 
+ 
+ .moveNote{
+  animation: moveDown linear 5s 1;
+  /* z-index: 1; */
+ }
+ 
+ 
+ .musicNote{
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  background-image: url("../MusicNote.png");
+  background-repeat: no-repeat;
+  background-size: 60px 60px;
+  /* background-color: red; */
+ }
+ 
+ 
+ @keyframes moveDown{
+  from{
+    top: 0px;
+    filter: hue-rotate(20deg)
+  }
+  to{
+    top: 600px;
+    filter: hue-rotate(280deg)
+  }
+ }
+ 
+ 
+ 
+ 
+   /* filter: saturate(3);  */
+    /* filter: opacity(50%);  */
+    /* filter: hue-rotate(180deg);  */
+    /* filter: grayscale(100%);  */
+    /* filter: sepia(100%);  */
+    /* filter: invert(100%);  */
+    /*filter: contrast(160%); */
+    /* filter: blur(3px);  */
+    /* filter: brightness(0.25);  */
+ 
