@@ -3,10 +3,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // define variables
     const MainDiv = document.querySelector('.dvMain');
-    const MainButton = document.querySelector('.btnMain');
+    const MainButton = document.querySelector('#startButton');
+    const PauseButton = document.querySelector('#pauseButton');
+    const score = document.querySelector('.scoreBox');
     const grid = document.querySelector(".grid");
     const music = document.querySelector("#music");
     const ddMusic = document.querySelector("#music-select");
+
+    //speed of music
+    let musicSpeed = 5;
+
+    //define points for selected song
+    let points = 0;
+
+    //create variable for music note interval
+    let musicNoteInterval;
+
  
  
     // let arrDarkColumns = [];
@@ -28,6 +40,12 @@ document.addEventListener("DOMContentLoaded", function() {
             if(j===0 && (i===0||i===1)){
                 gridSquare.classList.add("darkMiddle")
             }
+
+            //add class for rows that generate points
+            if(i>= 48){
+                gridSquare.classList.add("pointRow")
+            }
+
             // gridSquare.textContent = i;
             grid.appendChild(gridSquare);
            
@@ -38,6 +56,12 @@ document.addEventListener("DOMContentLoaded", function() {
             if(k===0 && (i===0||i===1)){
                 gridSquare.classList.add("lightMiddle")
             }
+
+            //add class for rows that generate points
+            if(i>= 48){
+                gridSquare.classList.add("pointRow")
+            }
+
             // gridSquare.textContent = i;
             grid.appendChild(gridSquare);
         }
@@ -47,15 +71,26 @@ document.addEventListener("DOMContentLoaded", function() {
  
  // function to create music note and start dropping
  function  fnCreateNote(){
-    const musicNote = document.createElement("div")
+    const musicNote = document.createElement("div");
+
+    //get array of darkMiddle/lightMiddle columns
+    const arrDarkColumns = document.querySelectorAll(".darkMiddle")
+    const arrLightColumns = document.querySelectorAll(".lightMiddle")
+
+    //push array of darkMiddle/lightMiddle columns into a new array
+    const arrAllColumns = [...arrDarkColumns, ...arrLightColumns]
+
+    //pick a random column from the new array
+    const randomColumn = arrAllColumns[Math.floor(Math.random() * arrAllColumns.length)]
+
  
  
     //pick a random coumn based on the darkMiddle/lightMiddle class and create a new note to append there
-    const musicColumn = document.querySelector(".darkMiddle")
+    //const musicColumn = document.querySelector(".lightMiddle")
    
    
     musicNote.classList.add("musicNote", "moveNote")
-    musicColumn.appendChild(musicNote)
+    randomColumn.appendChild(musicNote)
  
  
  }
@@ -74,33 +109,42 @@ document.addEventListener("DOMContentLoaded", function() {
     fnListenForClick();
  });
  
- 
- 
+PauseButton.addEventListener('click', function() {
+
+    //activate start button
+    MainButton.disabled = false;
+
+    //clear interval
+    clearInterval(musicNoteInterval);
+
+    //pause music
+    music.pause();
+});
+
  
  window.addEventListener('keydown', function(e) {
     //console.log(e.code + ' was pressed');
  
- 
- 
- 
     fnListenForKeyPress(e.code);
  });
  
- 
- 
- 
- 
- 
+
  
  
  // a function to listen for a click on a button
  function fnListenForClick(){
-    console.log('Button was clicked');
- 
+    //console.log('Button was clicked');
  
     let musicSelected = ddMusic.value
+
+    //update music speed with the speed attribute of the selected song
+    musicSpeed = ddMusic.options[ddMusic.selectedIndex].getAttribute("speed")
  
- 
+    //set the points for the selected song
+    points = parseInt(ddMusic.options[ddMusic.selectedIndex].getAttribute("points"))
+
+    console.log(points)
+
     music.src = musicSelected;
     music.play();
  
@@ -108,21 +152,24 @@ document.addEventListener("DOMContentLoaded", function() {
     fnCreateNote();
  
  
-    setInterval(() => {
-        fnCreateNote();
-    }, 5000);
- 
- 
- 
+    //create a new note every 1 second
+    musicNoteInterval = 
+        setInterval(() => {
+            //create a random number of notes between 1 and 3
+            let randomNum = Math.floor(Math.random() * 3) + 1;
+            for(let i = 0; i < randomNum; i++){
+                //add a class based on the random number
+                document.querySelector(".musicNote").classList.add(`note${i+1}`)
+
+                fnCreateNote();
+            }
+        }, 1000 * musicSpeed);
+    
+    //prevent button from being clicked again
+    MainButton.disabled = true;
  
     //play selected song
- 
- 
- 
- 
- 
- 
- 
+
  
     // add an event listener to the button
  
@@ -136,35 +183,41 @@ document.addEventListener("DOMContentLoaded", function() {
  
  }
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
  
  
  // a function to listen for a key press
  function fnListenForKeyPress(keyPressed){
+    //find the oldest music note in the array of all music notes
+    const arrMusicNotes = document.querySelectorAll(".musicNote")
+
+    //get the first music note in the array
+    const musicNote = arrMusicNotes[0]
+
     switch (keyPressed) {
         case 'KeyA':
-            console.log('A was pressed');
+            console.log('A was pressed for ' & ' points');
+            // if musicNote has class note1 and pointRow, remove it and add score
+            if(musicNote.classList.contains("note1") && musicNote.parentElement.classList.contains("pointRow")){
+                score.textContent = parseInt(score.textContent) + points;
+            }
+
+            musicNote.remove();
+
             break;
         case 'KeyS':
             console.log('S was pressed');
             break;
-            case 'KeyD':
-                console.log('D was pressed');
-                break;
-                case 'KeyF':
-                    console.log('F was pressed');
-                    break;
-        case 'Space':
-            console.log('Spacebar was pressed');
-            fnCreateNote();
+        case 'KeyD':
+            console.log('D was pressed');
+            break;
+        case 'KeyF':
+            console.log('F was pressed');
+            break;
+
+        // case 'Space':
+        //     console.log('Spacebar was pressed');
+        //     fnCreateNote();
  
  
             setInterval(() => {

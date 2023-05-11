@@ -13,17 +13,20 @@
     background-color: rgb(3, 23, 37);
     display: flex;
     flex-wrap: wrap;
+    color: white;
+    font-size: xx-small;
+   }
+   
+   
+   .lightgridSquare {
+      width:20px;
+      height:20px;
+      background-color: rgb(0, 221, 255);
+      display: flex;
+      flex-wrap: wrap;
+      color: black;
+      font-size: xx-small;
  }
- 
- 
- .lightgridSquare {
-    width:20px;
-    height:20px;
-    background-color: rgb(0, 221, 255);
-    display: flex;
-    flex-wrap: wrap;
- }
- 
  
  #startButton {
     position: top;
@@ -33,30 +36,7 @@
     bottom:450px;
     left:500px;
  }
- 
- 
- .scoreBox {
-    position: relative;
-    width: 200;
-    height: 300;
-    background-color: rgb(25, 213, 25);
-    right: 500px;
-    margin: auto;
-    flex-wrap: wrap;
-    display: grid;
- 
- 
- }
- 
- 
- .scoreBoxDarkgridSquare {
- 
- 
- display: none;
- 
- }
- 
- 
+  
  #pauseButton {
     position: top;
     width:130px;
@@ -65,6 +45,30 @@
     bottom:200px;
     left:396px;
  }
+ 
+ .scoreBox {
+    position: relative;
+    width: 50;
+    height: 50;
+    background-color: rgb(25, 213, 25);
+    margin: auto;
+
+    color: aliceblue;
+ 
+ }
+ 
+ .pointRow{
+   background-color:beige ;
+ }
+
+ .scoreBoxDarkgridSquare {
+ 
+ 
+ display: none;
+ 
+ }
+ 
+
  
  
  .moveNote{
