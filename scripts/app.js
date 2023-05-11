@@ -1,73 +1,69 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+    // DEFINE VARIABLES
+        const MainDiv = document.querySelector('.dvMain');
+        const MainButton = document.querySelector('#startButton');
+        const PauseButton = document.querySelector('#pauseButton');
+        const score = document.querySelector('.scoreBox');
+        const grid = document.querySelector(".grid");
+        const music = document.querySelector("#music");
+        const ddMusic = document.querySelector("#music-select");
 
-    // define variables
-    const MainDiv = document.querySelector('.dvMain');
-    const MainButton = document.querySelector('#startButton');
-    const PauseButton = document.querySelector('#pauseButton');
-    const score = document.querySelector('.scoreBox');
-    const grid = document.querySelector(".grid");
-    const music = document.querySelector("#music");
-    const ddMusic = document.querySelector("#music-select");
+        //speed of music
+        let musicSpeed = 5;
 
-    //speed of music
-    let musicSpeed = 5;
+        //define points for selected song
+        let points = 0;
 
-    //define points for selected song
-    let points = 0;
+        //reset current score
+        let currentScore = 0;
 
-    //create variable for music note interval
-    let musicNoteInterval;
+        //create variable for music note interval
+        let musicNoteInterval;
 
  
- 
-    // let arrDarkColumns = [];
-    // let arrLightColumns = [];
- 
- 
-    // create game grid
+    // CREATE GAME GRID
     fnCreateGrid(348);
  
  
  
- 
- //creates a grid that alternates colors every 3 squares
- function fnCreateGrid(squares) {
-    for(let i = 0; i < squares/6; i++) {
-        for(let j = 0; j < 3; j++) {
-            let gridSquare = document.createElement("div");
-            gridSquare.classList.add("darkgridSquare");
-            if(j===0 && (i===0||i===1)){
-                gridSquare.classList.add("darkMiddle")
-            }
+    //A FUNCTION THAT creates a grid that alternates colors every 3 squares
+    function fnCreateGrid(squares) {
+        for(let i = 0; i < squares/6; i++) {
+            for(let j = 0; j < 3; j++) {
+                let gridSquare = document.createElement("div");
+                gridSquare.classList.add("darkgridSquare");
+                if(j===0 && (i===0||i===1)){
+                    gridSquare.classList.add("darkMiddle")
+                }
 
-            //add class for rows that generate points
-            if(i>= 48){
-                gridSquare.classList.add("pointRow")
-            }
+                //add class for rows that generate points
+                if(i>= 48){
+                    gridSquare.classList.add("pointRow")
+                }
 
-            // gridSquare.textContent = i;
-            grid.appendChild(gridSquare);
-           
-        }
-        for(let k = 0; k < 3; k++) {
-            let gridSquare = document.createElement("div");
-            gridSquare.classList.add("lightgridSquare");
-            if(k===0 && (i===0||i===1)){
-                gridSquare.classList.add("lightMiddle")
+                // gridSquare.textContent = i;
+                grid.appendChild(gridSquare);
+            
             }
+            for(let k = 0; k < 3; k++) {
+                let gridSquare = document.createElement("div");
+                gridSquare.classList.add("lightgridSquare");
+                if(k===0 && (i===0||i===1)){
+                    gridSquare.classList.add("lightMiddle")
+                }
 
-            //add class for rows that generate points
-            if(i>= 48){
-                gridSquare.classList.add("pointRow")
+                //add class for rows that generate points
+                if(i>= 48){
+                    gridSquare.classList.add("pointRow")
+                }
+
+                // gridSquare.textContent = i;
+                grid.appendChild(gridSquare);
             }
-
-            // gridSquare.textContent = i;
-            grid.appendChild(gridSquare);
         }
     }
- }
- 
+    
  
  // function to create music note and start dropping
  function  fnCreateNote(){
@@ -183,8 +179,6 @@ PauseButton.addEventListener('click', function() {
  
  }
  
-
- 
  
  // a function to listen for a key press
  function fnListenForKeyPress(keyPressed){
@@ -196,12 +190,14 @@ PauseButton.addEventListener('click', function() {
 
     switch (keyPressed) {
         case 'KeyA':
-            console.log('A was pressed for ' & ' points');
-            // if musicNote has class note1 and pointRow, remove it and add score
+            console.log('A was pressed');
+            // if musicNote has class note1 and pointRow, remove it and update score
             if(musicNote.classList.contains("note1") && musicNote.parentElement.classList.contains("pointRow")){
-                score.textContent = parseInt(score.textContent) + points;
+                console.log("score")
+                currentScore += 10;
             }
 
+            console.log(currentScore)
             musicNote.remove();
 
             break;
@@ -242,7 +238,14 @@ PauseButton.addEventListener('click', function() {
  });
  
  
+// SELECT MUSIC FROM DROPDOWN
  
+// CLICK START TO START GAME
+
+// MUSIC STARTS PLAYING
+
+// CLICK A S D F TO HIT NOTES IN THE CORRESPONDING COLUMNS
+
  
  
  
