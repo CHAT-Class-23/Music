@@ -73,9 +73,10 @@
  display: none;
  
  }
- 
 
- 
+ .firstNote{
+    filter: brightness(5) !important;
+ }
  
  .moveNote{
   animation: moveDown linear 5s 1;

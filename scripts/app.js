@@ -139,8 +139,14 @@ music.addEventListener('ended', function() {
     //console.log(e.code + ' was pressed');
  
     fnListenForKeyPress(e.code);
- });
+});
 
+
+    //add event listener for when a music note is tapped on mobile
+    grid.addEventListener('touchstart', function(e) {
+        fnListenForKeyPress(e.target);
+        // console.log(e.target)
+    })
 
  
  
@@ -160,6 +166,7 @@ music.addEventListener('ended', function() {
  
     music.src = musicSelected;
     music.play();
+
  
     //create a new note every 1 second
     musicNoteInterval = 
@@ -168,16 +175,19 @@ music.addEventListener('ended', function() {
             let randomNum = Math.floor(Math.random() * 2) + 1;
             for(let i = 0; i < randomNum; i++){
 
+                fnCreateNote();
                 // wait 1 second before creating the next note
                 setTimeout(() => {
-                    fnCreateNote();
-                }, 2000);
-
+                    //add class to the last note created
+                    const arrMusicNotes = document.querySelectorAll(".moveNote")
+                    const firstNote = arrMusicNotes[0]
+                    firstNote.classList.add("firstNote")
+                }, 1000);
             }
         }, 1000 * musicSpeed);
     
     //prevent button from being clicked again
-    MainButton.disabled = true;
+    MainButton.disabled = true; 
  
     //play selected song
 
@@ -251,6 +261,16 @@ music.addEventListener('ended', function() {
                     musicNote.remove();
                 }
                 console.log('F was pressed ' + musicNote.classList);
+                break;
+            default:
+                // console.log(keyPressed);
+                if(keyPressed.classList.contains("moveNote")){
+                    keyPressed.remove();
+                    if( currentTop >= pointRowLine - 10){
+                        currentScore += parseInt(keyPressed.getAttribute("points"))
+                        score.textContent = currentScore
+                    }
+                }
                 break;
 
             // case 'Space':
