@@ -51,9 +51,9 @@
     position: absolute;
     width: 450;
     height: 450;
-    background-color: rgb(25, 213, 25);
+    background-color: rgb(14, 0, 206);
     /* margin: 80px; */
-    color: aliceblue;
+    color: rgb(182, 221, 255);
     font-size: 85px;
     border: 5px solid rgb(0, 0, 0);
     padding: 20px;
