@@ -47,14 +47,16 @@
  }
  
  .scoreBox {
-    position: relative;
-    width: 50;
-    height: 50;
+  /* display: flexbox; */
+    position: absolute;
+    width: 450;
+    height: 450;
     background-color: rgb(25, 213, 25);
-    margin: auto;
-
+    /* margin: 80px; */
     color: aliceblue;
- 
+    font-size: 85px;
+    border: 5px solid rgb(0, 0, 0);
+    padding: 20px;
  }
 
  .colorNote{

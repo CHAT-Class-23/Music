@@ -124,6 +124,16 @@ PauseButton.addEventListener('click', function() {
     music.pause();
 });
 
+//add event listener for when the music ends
+music.addEventListener('ended', function() {
+    //stop notes from dropping
+    clearInterval(musicNoteInterval);
+    //enable start button
+    MainButton.disabled = false;
+    //alert the score
+    alert("Your score is " + currentScore);
+});
+
  
  window.addEventListener('keydown', function(e) {
     //console.log(e.code + ' was pressed');
@@ -200,37 +210,44 @@ PauseButton.addEventListener('click', function() {
 
     // console.log(currentTop + " > " + pointRowLine)
     
-    if( currentTop >= pointRowLine - 10){
-        //switch statement to check which key was pressed
-        switch (keyPressed) {
-            case 'KeyA':
-                if(musicNote.classList.contains("note1")){
+    //switch statement to check which key was pressed
+    switch (keyPressed) {
+        case 'KeyA':
+            if(musicNote.classList.contains("note1")){
+                if( currentTop >= pointRowLine - 10){
                     currentScore += parseInt(musicNote.getAttribute("points"))
                     score.textContent = currentScore
+                }
                     musicNote.remove();
                 }
                  console.log('A was pressed ' + musicNote.classList);
                 break;
             case 'KeyS':
                 if(musicNote.classList.contains("note3")){
+                if( currentTop >= pointRowLine - 10){
                     currentScore += parseInt(musicNote.getAttribute("points"))
                     score.textContent = currentScore
+                }
                     musicNote.remove();
                 }
                  console.log('S was pressed ' + musicNote.classList);
                 break;
             case 'KeyD':
                 if(musicNote.classList.contains("note2")){
+                if( currentTop >= pointRowLine - 10){
                     currentScore += parseInt(musicNote.getAttribute("points"))
                     score.textContent = currentScore
+                }
                     musicNote.remove();
                 }                
                 console.log('D was pressed ' + musicNote.classList);
                 break;
             case 'KeyF':
                 if(musicNote.classList.contains("note4")){
+                if( currentTop >= pointRowLine - 10){
                     currentScore += parseInt(musicNote.getAttribute("points"))
                     score.textContent = currentScore
+                }
                     musicNote.remove();
                 }
                 console.log('F was pressed ' + musicNote.classList);
@@ -246,7 +263,7 @@ PauseButton.addEventListener('click', function() {
             //     }, 5000);
             //     break;
         }
-    }
+ //   }
  }
  
  
