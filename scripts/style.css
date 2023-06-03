@@ -56,6 +56,10 @@
     color: aliceblue;
  
  }
+
+ .colorNote{
+   filter: brightness(0.25) !important;
+ }
  
  /* .pointRow{
    background-color:beige ;
@@ -94,7 +98,7 @@
     filter: hue-rotate(20deg)
   }
   to{
-    top: 600px;
+    top: 800px;
     filter: hue-rotate(280deg)
   }
  }

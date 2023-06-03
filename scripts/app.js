@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
  
     //A FUNCTION THAT creates a grid that alternates colors every 3 squares
     function fnCreateGrid(squares) {
+        const pointsRowPosition = 40;
         for(let i = 0; i < squares/6; i++) {
             for(let j = 0; j < 3; j++) {
                 let gridSquare = document.createElement("div");
@@ -38,13 +39,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 //add class for rows that generate points
-                if(i>= 48){
+                if(i>= pointsRowPosition){
                     gridSquare.classList.add("pointRow")
                 }
 
                 // gridSquare.textContent = i;
                 grid.appendChild(gridSquare);
-            
+             
             }
             for(let k = 0; k < 3; k++) {
                 let gridSquare = document.createElement("div");
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 //add class for rows that generate points
-                if(i>= 48){
+                if(i>= pointsRowPosition){
                     gridSquare.classList.add("pointRow")
                 }
 
@@ -77,17 +78,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const arrAllColumns = [...arrDarkColumns, ...arrLightColumns]
 
     //pick a random column from the new array
-    const randomColumn = arrAllColumns[Math.floor(Math.random() * arrAllColumns.length)]
+    const randomColumn = Math.floor(Math.random() * arrAllColumns.length)
 
- 
- 
-    //pick a random coumn based on the darkMiddle/lightMiddle class and create a new note to append there
-    //const musicColumn = document.querySelector(".lightMiddle")
-   
-   
+    //get the column from the array
+    const column = arrAllColumns[randomColumn]
+
+    //add a class to the column based on the randomColumn variable
+    musicNote.classList.add(`note${randomColumn + 1}`)
+
+    //add points attribute to the note
+    musicNote.setAttribute("points", points)
+
     musicNote.classList.add("musicNote", "moveNote")
-    randomColumn.appendChild(musicNote)
- 
+    column.appendChild(musicNote)
  
  }
  
@@ -123,7 +126,7 @@ PauseButton.addEventListener('click', function() {
  
     fnListenForKeyPress(e.code);
  });
- 
+
 
  
  
@@ -140,24 +143,22 @@ PauseButton.addEventListener('click', function() {
     points = parseInt(ddMusic.options[ddMusic.selectedIndex].getAttribute("points"))
 
     console.log(points)
-
+ 
     music.src = musicSelected;
     music.play();
- 
- 
-    fnCreateNote();
- 
  
     //create a new note every 1 second
     musicNoteInterval = 
         setInterval(() => {
             //create a random number of notes between 1 and 3
-            let randomNum = Math.floor(Math.random() * 3) + 1;
+            let randomNum = Math.floor(Math.random() * 2) + 1;
             for(let i = 0; i < randomNum; i++){
-                //add a class based on the random number
-                document.querySelector(".musicNote").classList.add(`note${i+1}`)
 
-                fnCreateNote();
+                // wait 1 second before creating the next note
+                setTimeout(() => {
+                    fnCreateNote();
+                }, 2000);
+
             }
         }, 1000 * musicSpeed);
     
@@ -184,45 +185,63 @@ PauseButton.addEventListener('click', function() {
  function fnListenForKeyPress(keyPressed){
     //find the oldest music note in the array of all music notes
     const arrMusicNotes = document.querySelectorAll(".musicNote")
+    const pointRowLine = document.querySelectorAll(".pointRow")[0].getBoundingClientRect().top
 
     //get the first music note in the array
     const musicNote = arrMusicNotes[0]
 
-    switch (keyPressed) {
-        case 'KeyA':
-            console.log('A was pressed');
-            // if musicNote has class note1 and pointRow, remove it and update score
-            if(musicNote.classList.contains("note1") && musicNote.parentElement.classList.contains("pointRow")){
-                console.log("score")
-                currentScore += 10;
-            }
+    
+    //get current y position of music note and return the class list of the closest div
+    const currentTop = musicNote.getBoundingClientRect().top
 
-            console.log(currentScore)
-            musicNote.remove();
+    // console.log(currentTop + " > " + pointRowLine)
+    
+    if( currentTop >= pointRowLine - 10){
+        //switch statement to check which key was pressed
+        switch (keyPressed) {
+            case 'KeyA':
+                if(musicNote.classList.contains("note1")){
+                    currentScore += parseInt(musicNote.getAttribute("points"))
+                    score.textContent = currentScore
+                    musicNote.remove();
+                }
+                // console.log('A was pressed ' + musicNote.classList);
+                break;
+            case 'KeyS':
+                if(musicNote.classList.contains("note3")){
+                    currentScore += parseInt(musicNote.getAttribute("points"))
+                    score.textContent = currentScore
+                    musicNote.remove();
+                }
+                // console.log('S was pressed ' + musicNote.classList);
+                break;
+            case 'KeyD':
+                if(musicNote.classList.contains("note2")){
+                    currentScore += parseInt(musicNote.getAttribute("points"))
+                    score.textContent = currentScore
+                    musicNote.remove();
+                }                
+                // console.log('D was pressed ' + musicNote.classList);
+                break;
+            case 'KeyF':
+                if(musicNote.classList.contains("note4")){
+                    currentScore += parseInt(musicNote.getAttribute("points"))
+                    score.textContent = currentScore
+                    musicNote.remove();
+                }
+                // console.log('F was pressed ' + musicNote.classList);
+                break;
 
-            break;
-        case 'KeyS':
-            console.log('S was pressed');
-            break;
-        case 'KeyD':
-            console.log('D was pressed');
-            break;
-        case 'KeyF':
-            console.log('F was pressed');
-            break;
-
-        // case 'Space':
-        //     console.log('Spacebar was pressed');
-        //     fnCreateNote();
- 
- 
-            setInterval(() => {
-                fnCreateNote();
-            }, 5000);
-            break;
-        default:
-            console.log('Some random Key was pressed');
-            break;
+            // case 'Space':
+            //     console.log('Spacebar was pressed');
+            //     fnCreateNote();
+            //     break;
+            // default:    
+            //     setInterval(() => {
+            //         fnCreateNote();
+            //     }, 5000);
+            //     break;
+        }
     }
  }
  
