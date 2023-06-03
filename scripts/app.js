@@ -83,8 +83,12 @@ document.addEventListener("DOMContentLoaded", function() {
     //get the column from the array
     const column = arrAllColumns[randomColumn]
 
+    //create class for the column
+    const columnClass = 'note' + (randomColumn + 1)
+
     //add a class to the column based on the randomColumn variable
-    musicNote.classList.add(`note${randomColumn + 1}`)
+    musicNote.classList.add(columnClass)
+    // console.log ('note' + (randomColumn + 1))
 
     //add points attribute to the note
     musicNote.setAttribute("points", points)
@@ -205,7 +209,7 @@ PauseButton.addEventListener('click', function() {
                     score.textContent = currentScore
                     musicNote.remove();
                 }
-                // console.log('A was pressed ' + musicNote.classList);
+                 console.log('A was pressed ' + musicNote.classList);
                 break;
             case 'KeyS':
                 if(musicNote.classList.contains("note3")){
@@ -213,7 +217,7 @@ PauseButton.addEventListener('click', function() {
                     score.textContent = currentScore
                     musicNote.remove();
                 }
-                // console.log('S was pressed ' + musicNote.classList);
+                 console.log('S was pressed ' + musicNote.classList);
                 break;
             case 'KeyD':
                 if(musicNote.classList.contains("note2")){
@@ -221,7 +225,7 @@ PauseButton.addEventListener('click', function() {
                     score.textContent = currentScore
                     musicNote.remove();
                 }                
-                // console.log('D was pressed ' + musicNote.classList);
+                console.log('D was pressed ' + musicNote.classList);
                 break;
             case 'KeyF':
                 if(musicNote.classList.contains("note4")){
@@ -229,7 +233,7 @@ PauseButton.addEventListener('click', function() {
                     score.textContent = currentScore
                     musicNote.remove();
                 }
-                // console.log('F was pressed ' + musicNote.classList);
+                console.log('F was pressed ' + musicNote.classList);
                 break;
 
             // case 'Space':
