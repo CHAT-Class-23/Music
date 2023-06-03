@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
         e.target.remove();
    }
  })
- 
+  
  
  // add event listeners
  MainButton.addEventListener('click', function() {
